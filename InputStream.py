@@ -15,7 +15,7 @@ class FrameInputStream():
             data = np.array(list(data))
             data = data.astype(np.uint8)
             data = data.reshape(FRAME_HEIGHT, FRAME_WIDTH)
-            framePipeline.add_frame(data)
+            framePipeline.insert(data)
 
     def stop(self):
         self.sock.shutdown()
