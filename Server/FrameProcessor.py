@@ -1,7 +1,15 @@
+from properties import *
+
 def frameProcessor(framePipeline, detectionPipeline, detector):
     while True:
-        frame = framePipeline.get()
-        if frame is not None:
-            faces = detector.detectMultiScale(frame)
-            for face in faces:
-                detectionPipeline.insert(face)
+        data = framePipeline.get()
+        if data is not None:
+            try:
+                data = np.array(list(data))
+                data = data.astype(np.uint8)
+                data = data.reshape(FRAME_HEIGHT, FRAME_WIDTH)
+                faces = detector.detectMultiScale(data)
+                for face in faces:
+                    detectionPipeline.insert(face)
+            except:
+                pass

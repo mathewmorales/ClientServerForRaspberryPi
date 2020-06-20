@@ -1,7 +1,7 @@
-from InputStream import FrameInputStream
-from OutputStream import DetectionOutputStream
 from FrameProcessor import frameProcessor
-from Pipeline import Pipeline
+from utils.InputStream import InputStream
+from utils.OutputStream import OutputStream
+from utils.Pipeline import Pipeline
 import concurrent.futures
 import cv2
 
@@ -15,8 +15,11 @@ if __name__ == '__main__':
 
     framePipeline = Pipeline()
     detectionPipeline = Pipeline()
-    inputStream = FrameInputStream()
-    outputStream = DetectionOutputStream()
+    inputStream = InputStream(ip=SERVER_IP,
+                            port=UDP_PORT,
+                            numNetworkBytes=FRAME_WIDTH * FRAME_HEIGHT)
+    outputStream = OutputStream(ip=CLIENT_IP,
+                            port=UDP_PORT)
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex:
         ex.submit(inputStream.run, framePipeline)
         ex.submit(frameProcessor, framePipeline, detectionPipeline, face_cascade)
