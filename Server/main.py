@@ -4,6 +4,7 @@ from utils.OutputStream import OutputStream
 from utils.Pipeline import Pipeline
 import concurrent.futures
 import cv2
+from properties import *
 
 cascadeFile = 'haarcascades/haarcascade_frontalface_default.xml'
 
