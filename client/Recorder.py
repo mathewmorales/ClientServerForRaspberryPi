@@ -10,14 +10,12 @@ class Recorder:
 
     def run(self, outputPipeline, displayPipeline):
         while(True):
-        	ret, img = cap.read()
-        	if not ret:
-        		break
+            ret, img = self.cap.read()
+            if not ret:
+                break
             bwImg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            displayPipeline.insert(bwImg.flatten())
-            outputPipeline.insert(img)
-        	if cv2.waitKey(1) & 0xFF == ord('q'):
-        		break
+            outputPipeline.insert(bwImg.flatten())
+            displayPipeline.insert(img)
         self.shutdown()
 
     def shutdown(self):
