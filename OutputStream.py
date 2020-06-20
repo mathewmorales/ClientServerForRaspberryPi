@@ -11,7 +11,7 @@ class DetectionOutputStream:
     def run(self, detectionPipeline):
         while True:
             detection = detectionPipeline.get()
-            self.sock.sendto(bytes(detection), (CLIENT_IP, UDP_PORT))
+            self.sock.sendto(bytes(list(detection)), (CLIENT_IP, UDP_PORT))
 
     def stop(self):
         self.sock.shutdown()
