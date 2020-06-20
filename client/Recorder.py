@@ -5,15 +5,15 @@ from properties import *
 class Recorder:
     def __init__(self):
         self.cap = cv2.VideoCapture(0)
-        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, FRAME_WIDTH)
-        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT)
+        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, FRAME_WIDTH * FRAME_SCALE)
+        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT * FRAME_SCALE)
 
     def run(self, outputPipeline, displayPipeline):
         while(True):
             ret, img = self.cap.read()
             if not ret:
                 break
-            bwImg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            bwImg = cv2.cvtColor(cv2.resize(img, (FRAME_WIDTH, FRAME_HEIGHT)), cv2.COLOR_BGR2GRAY)
             outputPipeline.insert(bwImg.flatten())
             displayPipeline.insert(img)
         self.shutdown()
