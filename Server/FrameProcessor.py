@@ -1,4 +1,5 @@
 from properties import *
+import numpy as np
 
 def frameProcessor(framePipeline, detectionPipeline, detector):
     while True:
@@ -10,6 +11,7 @@ def frameProcessor(framePipeline, detectionPipeline, detector):
                 data = data.reshape(FRAME_HEIGHT, FRAME_WIDTH)
                 faces = detector.detectMultiScale(data)
                 for face in faces:
+                    print(face)
                     detectionPipeline.insert(face)
             except:
-                pass
+                print('error in frameProcessor')
